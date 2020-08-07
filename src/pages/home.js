@@ -56,7 +56,7 @@ export default function HomePage(props) {
   ]
 
   return (
-    <div style={{ height: '89vh', position: 'relative', maxWidth: '1000px', margin: 'auto' }}>
+    <div className='m-auto max-w-4xl' style={{ height: '89vh', position: 'relative' }}>
       {/** Overview */}
       <Paper 
         elevation={2}
