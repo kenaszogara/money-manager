@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom'
+
 // material-ui
 import { 
   Hidden, 
@@ -8,7 +10,6 @@ import {
   ListItem, 
   ListItemIcon, 
   ListItemText,
-  Link,
 } from '@material-ui/core'
 
 // icons from material-ui
@@ -65,13 +66,13 @@ export default function SideBar(props) {
 
   const menuList = (
     <div>
-      <Link href='/'>
+      <Link to='/'>
         <div className={classes.drawerHeader} />
       </Link>
       
       <List>
         {links.map((link, index) => (
-          <Link key={index} href={link.url} underline='none' color='inherit'>
+          <Link key={index} to={link.url} underline='none' color='inherit'>
             <ListItem button>
               <ListItemIcon>{renderIcon(index)}</ListItemIcon>
               <ListItemText primary={link.name} />

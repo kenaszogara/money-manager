@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 /** material-ui */
 import { Paper, ListItem, Button } from '@material-ui/core'
 
@@ -7,7 +7,6 @@ import { Paper, ListItem, Button } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
 export default function HomePage(props) {
-
   // overview data
   const overview = [
     {
@@ -57,7 +56,7 @@ export default function HomePage(props) {
   ]
 
   return (
-    <div style={{ height: '89vh', position: 'relative', maxWidth: '1000px', margin: 'auto' }}>
+    <div className='m-auto max-w-4xl' style={{ height: '89vh', position: 'relative' }}>
       {/** Overview */}
       <Paper 
         elevation={2}
@@ -153,22 +152,27 @@ export default function HomePage(props) {
       }
 
       {/** add button, maybe use styled-component */}
-      <Button style={{
-        width: '75px',
-        height: '75px',
-        borderRadius: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#FFE071',
-        color: '#FFF',
-        boxShadow: '6px 6px 8px rgba(0, 0, 0, 0.25)',
-        position: 'absolute',
-        bottom: '0',
-        right: '0'
-      }}>
-        <AddIcon />
-      </Button>
+      <Link to='/add'>
+        <Button
+          style={{
+            width: '75px',
+            height: '75px',
+            borderRadius: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#FFE071',
+            color: '#FFF',
+            boxShadow: '6px 6px 8px rgba(0, 0, 0, 0.25)',
+            position: 'absolute',
+            bottom: '0',
+            right: '0'
+          }}
+        >
+          <AddIcon />
+        </Button>
+      </Link>
+      
     </div>
   )
 }

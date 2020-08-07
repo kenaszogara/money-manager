@@ -7,6 +7,7 @@ import ChartPage from './pages/chart'
 import CategoriesPage from './pages/categories'
 import SettingsPage from './pages/settings'
 import AboutPage from './pages/about'
+import AddPage from './pages/add'
 
 export default function Router() {
   return(
@@ -16,6 +17,7 @@ export default function Router() {
       <Route exact path='/categories' component={CategoriesPage} />
       <Route exact path='/settings' component={SettingsPage} />
       <Route exact path='/about' component={AboutPage} />
+      <Route exact path='/add' component={AddPage} />
     </Switch>
   )
 }
