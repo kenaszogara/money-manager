@@ -1,9 +1,12 @@
 import React from 'react'
-import clsx from 'clsx';
-import { AppBar, Toolbar, IconButton } from '@material-ui/core'
+import clsx from 'clsx'
+import { useHistory } from 'react-router-dom'
+import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import useWindowSize from './../hooks/useWindowSize'
+import auth from './../auth'
 
 import SideBar from './sidebar'
 
@@ -14,20 +17,20 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+      duration: theme.transitions.duration.leavingScreen
+    })
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+      duration: theme.transitions.duration.enteringScreen
+    })
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 0
   },
   drawerHeader: {
     backgroundColor: '#FFE071',
@@ -36,10 +39,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: drawerWidth
   },
   toolbar: {
     display: 'flex',
@@ -47,17 +50,17 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.leavingScreen
     }),
     marginTop: '3rem',
-    marginLeft: -drawerWidth,
+    marginLeft: -drawerWidth
   },
   contentXS: {
     marginLeft: '0'
@@ -65,40 +68,61 @@ const useStyles = makeStyles((theme) => ({
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
+      duration: theme.transitions.duration.enteringScreen
     }),
-    marginLeft: 0,
-  },
+    marginLeft: 0
+  }
 }))
 
 export default function MasterLayout(props) {
-  const { drawerOpen, handleToggleDrawer, children } = props
+  const { drawerOpen, handleToggleDrawer, children, handleLogout } = props
   const classes = useStyles()
-  const appWindow = useWindowSize();
+  const appWindow = useWindowSize()
+  const history = useHistory()
 
   return (
-    <div style={{ display: 'flex'}}>
-      <AppBar 
+    <div style={{ display: 'flex' }}>
+      <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: drawerOpen && appWindow.width > 500,
+          [classes.appBarShift]: drawerOpen && appWindow.width > 500
         })}
       >
         <Toolbar variant="dense">
-          <IconButton onClick={handleToggleDrawer} edge="start" color="inherit" aria-label="menu">
-            <MenuIcon/>
+          <IconButton
+            onClick={handleToggleDrawer}
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
           </IconButton>
+          <Button
+            onClick={() =>
+              handleLogout(() => {
+                auth.logout(() => console.log('logout'))
+                history.push('/')
+              })
+            }
+            color="secondary"
+            endIcon={<ExitToAppIcon />}
+            style={{
+              marginLeft: 'auto'
+            }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
-      <SideBar 
+      <SideBar
         style={classes}
-        open={drawerOpen}   
+        open={drawerOpen}
         toggleDrawer={handleToggleDrawer}
       />
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: drawerOpen && appWindow.width > 500,
-          [classes.contentXS]: appWindow.width < 500,
+          [classes.contentXS]: appWindow.width < 500
         })}
       >
         {children}

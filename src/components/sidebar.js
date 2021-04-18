@@ -66,7 +66,7 @@ export default function SideBar(props) {
 
   const menuList = (
     <div>
-      <Link to='/'>
+      <Link to='/home'>
         <div className={classes.drawerHeader} />
       </Link>
       
